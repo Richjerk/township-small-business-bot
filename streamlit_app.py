@@ -1,55 +1,71 @@
 import streamlit as st
-from pymongo import MongoClient
 
-# Connect to MongoDB Atlas
-client = MongoClient("mongodb+srv://<username>:<password>@cluster0.mongodb.net/township_db?retryWrites=true&w=majority")
-db = client.township_db
-collection = db.businesses
+# In-memory storage for businesses
+businesses = []
 
-# Streamlit app layout
-st.title("Township Small Business Chatbot")
-
-def add_business():
-    name = st.text_input("Enter Business Name")
-    type = st.text_input("Enter Business Type")
-    address = st.text_input("Enter Business Address")
-    if st.button("Add Business"):
-        collection.insert_one({"name": name, "type": type, "address": address})
-        st.success("Business added successfully!")
+def add_business(name, type, address):
+    businesses.append({"name": name, "type": type, "address": address})
 
 def view_businesses():
-    businesses = collection.find()
+    return businesses
+
+def update_business(name, new_type, new_address):
     for business in businesses:
-        st.write(business)
+        if business["name"] == name:
+            business["type"] = new_type
+            business["address"] = new_address
+            return True
+    return False
 
-def update_business():
-    name = st.text_input("Enter Business Name to Update")
-    new_type = st.text_input("Enter New Business Type")
-    new_address = st.text_input("Enter New Business Address")
-    if st.button("Update Business"):
-        collection.update_one({"name": name}, {"$set": {"type": new_type, "address": new_address}})
-        st.success("Business updated successfully!")
+def delete_business(name):
+    for business in businesses:
+        if business["name"] == name:
+            businesses.remove(business)
+            return True
+    return False
 
-def delete_business():
-    name = st.text_input("Enter Business Name to Delete")
-    if st.button("Delete Business"):
-        collection.delete_one({"name": name})
-        st.success("Business deleted successfully!")
-
-# Main app function
 def main():
-    st.sidebar.title("Menu")
+    st.title("Township Small Business Chatbot")
+
     menu = ["Add Business", "View Businesses", "Update Business", "Delete Business"]
-    choice = st.sidebar.selectbox("Select Activity", menu)
+    choice = st.sidebar.selectbox("Menu", menu)
 
     if choice == "Add Business":
-        add_business()
-    elif choice == "View Businesses":
-        view_businesses()
-    elif choice == "Update Business":
-        update_business()
-    elif choice == "Delete Business":
-        delete_business()
+        st.subheader("Add a New Business")
+        name = st.text_input("Business Name")
+        type = st.text_input("Business Type")
+        address = st.text_input("Business Address")
+        if st.button("Add Business"):
+            add_business(name, type, address)
+            st.success(f"Added {name}")
 
-if __name__ == "__main__":
+    elif choice == "View Businesses":
+        st.subheader("View All Businesses")
+        businesses_list = view_businesses()
+        for business in businesses_list:
+            st.write(business)
+
+    elif choice == "Update Business":
+        st.subheader("Update Business")
+        name = st.text_input("Business Name to Update")
+        new_type = st.text_input("New Business Type")
+        new_address = st.text_input("New Business Address")
+        if st.button("Update Business"):
+            if update_business(name, new_type, new_address):
+                st.success(f"Updated {name}")
+            else:
+                st.error(f"Business {name} not found")
+
+    elif choice == "Delete Business":
+        st.subheader("Delete Business")
+        name = st.text_input("Business Name to Delete")
+        if st.button("Delete Business"):
+            if delete_business(name):
+                st.success(f"Deleted {name}")
+            else:
+                st.error(f"Business {name} not found")
+
+if __name__ == '__main__':
     main()
+
+
