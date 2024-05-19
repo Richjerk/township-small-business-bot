@@ -22,6 +22,37 @@ def query_ollama3(input_text):
 # Streamlit App
 st.title("Township Small Business Chatbot")
 
+<<<<<<< HEAD
+=======
+# Authentication and Registration (Placeholder)
+def authenticate():
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "admin" and password == "password":
+            st.session_state["authenticated"] = True
+        else:
+            st.error("Invalid credentials")
+
+def register():
+    new_username = st.text_input("New Username")
+    new_password = st.text_input("New Password", type="password")
+    if st.button("Register"):
+        st.success("Registration successful! Please log in.")
+
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    st.sidebar.header("Login / Register")
+    auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
+    if auth_option == "Login":
+        authenticate()
+    else:
+        register()
+    st.stop()
+
+>>>>>>> 857ed2c (Commit local changes)
 # Business Profile Input
 st.header("Business Profile")
 business_name = st.text_input("Business Name")
