@@ -1,3 +1,8 @@
+streamlit==1.34.0
+geopy==2.2.0
+Pillow==9.0.1
+requests==2.27.1
+
 import streamlit as st
 from geopy.geocoders import Nominatim
 import requests
