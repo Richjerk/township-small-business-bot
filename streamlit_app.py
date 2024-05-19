@@ -1,12 +1,6 @@
-streamlit==1.34.0
-geopy==2.2.0
-Pillow==9.0.1
-requests==2.27.1
-
 import streamlit as st
 from geopy.geocoders import Nominatim
 import requests
-import os
 from PIL import Image
 
 # Mock function for LLM interaction using Ollama3
@@ -23,7 +17,7 @@ def authenticate():
     password = st.text_input("Password", type="password")
     if st.button("Login"):
         if username == "admin" and password == "password":
-            st.session_state.authenticated = True
+            st.session_state["authenticated"] = True
         else:
             st.error("Invalid credentials")
 
@@ -34,9 +28,9 @@ def register():
         st.success("Registration successful! Please log in.")
 
 if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
+    st.session_state["authenticated"] = False
 
-if not st.session_state.authenticated:
+if not st.session_state["authenticated"]:
     st.sidebar.header("Login / Register")
     auth_option = st.sidebar.radio("Choose an option", ["Login", "Register"])
     if auth_option == "Login":
@@ -59,8 +53,8 @@ if st.button("Get Coordinates"):
     loc = geolocator.geocode(location)
     if loc:
         st.write(f"Coordinates: {loc.latitude}, {loc.longitude}")
-        st.session_state.latitude = loc.latitude
-        st.session_state.longitude = loc.longitude
+        st.session_state["latitude"] = loc.latitude
+        st.session_state["longitude"] = loc.longitude
     else:
         st.error("Location not found!")
 
@@ -71,11 +65,9 @@ product_services = st.text_area("Describe your products and services")
 # Image Upload
 st.header("Upload Business Images")
 uploaded_files = st.file_uploader("Upload Images", accept_multiple_files=True, type=["jpg", "png", "jpeg"])
-images = []
 if uploaded_files:
     for uploaded_file in uploaded_files:
         img = Image.open(uploaded_file)
-        images.append(img)
         st.image(img, caption=uploaded_file.name)
 
 # Save Business Profile (Mock)
@@ -87,7 +79,7 @@ def save_business_profile():
         "latitude": st.session_state.get("latitude"),
         "longitude": st.session_state.get("longitude"),
         "product_services": product_services,
-        "images": [img.filename for img in images]
+        "images": [uploaded_file.name for uploaded_file in uploaded_files]
     }
     st.success("Business profile saved successfully!")
     return business_profile
@@ -118,7 +110,10 @@ if st.button("Request Order"):
 # Footer
 st.write("---")
 st.write("© 2024 Township Small Business Chatbot")
-<<<<<<< HEAD
 
-=======
->>>>>>> 391a08ad9aac720d17a9ae14408325a9fb6caeda
+
+
+  
+
+    
+ 
