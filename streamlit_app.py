@@ -3,6 +3,11 @@ from geopy.geocoders import Nominatim
 import requests
 from PIL import Image
 import ollama
+import streamlit as st
+
+with open('style.css') as f:
+    css = f.read()
+
 
 # Function for LLM interaction using Ollama3
 def query_ollama3(input_text):
