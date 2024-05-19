@@ -3,10 +3,15 @@ from geopy.geocoders import Nominatim
 import requests
 from PIL import Image
 
-# Mock function for LLM interaction using Ollama3
+# Mock function for LLM interaction using Ollama3 with error handling
 def query_ollama3(input_text):
-    response = requests.post("https://api.ollama3.com/query", json={"input": input_text})
-    return response.json()["response"]
+    try:
+        response = requests.post("https://api.ollama3.com/query", json={"input": input_text})
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        return response.json().get("response", "No response received")
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error querying Ollama3 API: {e}")
+        return None
 
 # Streamlit App
 st.title("Township Small Business Chatbot")
@@ -65,7 +70,8 @@ user_query = st.text_input("Ask about local businesses")
 if st.button("Send Query"):
     if user_query:
         response = query_ollama3(user_query)
-        st.write("Response:", response)
+        if response:
+            st.write("Response:", response)
     else:
         st.error("Please enter a query")
 
@@ -82,5 +88,4 @@ if st.button("Request Order"):
 # Footer
 st.write("---")
 st.write("© 2024 Township Small Business Chatbot")
-
 
