@@ -2,14 +2,14 @@ import streamlit as st
 from geopy.geocoders import Nominatim
 import requests
 from PIL import Image
+import ollama
 
-# Mock function for LLM interaction using Ollama3 with error handling
+# Function for LLM interaction using Ollama3
 def query_ollama3(input_text):
     try:
-        response = requests.post("https://api.ollama3.com/query", json={"input": input_text})
-        response.raise_for_status()  # Raise an HTTPError for bad responses
-        return response.json().get("response", "No response received")
-    except requests.exceptions.RequestException as e:
+        response = ollama.chat(model='llama3', messages=[{'role': 'user', 'content': input_text}])
+        return response['message']['content']
+    except Exception as e:
         st.error(f"Error querying Ollama3 API: {e}")
         return None
 
@@ -88,4 +88,5 @@ if st.button("Request Order"):
 # Footer
 st.write("---")
 st.write("© 2024 Township Small Business Chatbot")
+
 
