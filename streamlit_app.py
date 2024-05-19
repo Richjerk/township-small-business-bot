@@ -118,4 +118,7 @@ if st.button("Request Order"):
 # Footer
 st.write("---")
 st.write("© 2024 Township Small Business Chatbot")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 391a08ad9aac720d17a9ae14408325a9fb6caeda
