@@ -1,8 +1,2 @@
-streamlit
-HEAD
-# Your local code
-# Code from the remote repository
- 71b545d
+streamlit==1.34.0
 
-somepackage==2.0.0
-# Final merged code
