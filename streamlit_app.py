@@ -1,35 +1,3 @@
-import streamlit as st
-from geopy.geocoders import Nominatim
-import requests
-from PIL import Image
-import ollama
-import streamlit as st
-
-# Define your CSS styles
-custom_css = """
-body {
-  background-color: #f0f0f0;
-}
-
-.title {
-  font-size: 2em;
-  text-align: center;
-}
-"""
-
-# Inject CSS with st.markdown and unsafe_allow_html
-st.markdown(f'<style>{custom_css}</style>', unsafe_allow_html=True)
-
-# Your Streamlit app layout with styled elements (e.g., titles)
-st.title("Styled Title", class_="title")  # Optional class targeting for styling
-
-# ... rest of your Streamlit app code
-
-
-with open('style.css') as f:
-    css = f.read()
-
-
 # Function for LLM interaction using Ollama3
 def query_ollama3(input_text):
     try:
