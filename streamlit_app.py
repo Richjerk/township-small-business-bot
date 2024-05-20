@@ -1,11 +1,19 @@
-# Function for LLM interaction using Ollama3
-def query_ollama3(input_text):
+import streamlit as st
+from geopy.geocoders import Nominatim
+import requests
+from PIL import Image
+
+# Mock function for LLM interaction using Ollama
+def query_ollama(input_text):
     try:
-        response = ollama.chat(model='llama3', messages=[{'role': 'user', 'content': input_text}])
+        import ollama
+        response = ollama.chat(model='llama3', messages=[
+            {'role': 'user', 'content': input_text},
+        ])
         return response['message']['content']
-    except Exception as e:
-        st.error(f"Error querying Ollama3 API: {e}")
-        return None
+    except ModuleNotFoundError:
+        # Mock response if ollama is not available
+        return "Mock response: Ollama module not found."
 
 # Streamlit App
 st.title("Township Small Business Chatbot")
@@ -63,9 +71,8 @@ st.header("Chat with Businesses")
 user_query = st.text_input("Ask about local businesses")
 if st.button("Send Query"):
     if user_query:
-        response = query_ollama3(user_query)
-        if response:
-            st.write("Response:", response)
+        response = query_ollama(user_query)
+        st.write("Response:", response)
     else:
         st.error("Please enter a query")
 
@@ -82,6 +89,3 @@ if st.button("Request Order"):
 # Footer
 st.write("---")
 st.write("© 2024 Township Small Business Chatbot")
-
-
-
