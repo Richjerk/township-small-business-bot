@@ -2,4 +2,5 @@ township-small-business-chatbot/
 │
 ├── streamlit_app.py
 ├── requirements.txt
+└── style.css
 └── README.md
