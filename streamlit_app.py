@@ -22,8 +22,6 @@ def query_ollama3(input_text):
 # Streamlit App
 st.title("Township Small Business Chatbot")
 
-<<<<<<< HEAD
-=======
 # Authentication and Registration (Placeholder)
 def authenticate():
     username = st.text_input("Username")
@@ -52,7 +50,7 @@ if not st.session_state["authenticated"]:
         register()
     st.stop()
 
->>>>>>> 857ed2c (Commit local changes)
+ 857ed2c (Commit local changes)
 # Business Profile Input
 st.header("Business Profile")
 business_name = st.text_input("Business Name")
