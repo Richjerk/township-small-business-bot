@@ -2,7 +2,6 @@ import streamlit as st
 from geopy.geocoders import Nominatim
 import requests
 import os
-import pillow
 import ollama
 from PIL import Image
 from ollama_api import query_ollama  # Import the function
