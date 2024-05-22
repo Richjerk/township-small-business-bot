@@ -4,6 +4,7 @@ import requests
 import os
 import ollama
 from PIL import Image
+from auth import register_user, login_user
 from ollama_api import query_ollama  # Import the function
 
 # Your existing Streamlit code...
