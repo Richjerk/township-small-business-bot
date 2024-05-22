@@ -2,8 +2,12 @@ import streamlit as st
 from geopy.geocoders import Nominatim
 import requests
 import os
+import pillow
 import ollama
 from PIL import Image
+from ollama_api import query_ollama  # Import the function
+
+# Your existing Streamlit code...
 
 with open('style.css') as f:
     css = f.read()
@@ -113,6 +117,19 @@ if st.button("Request Order"):
         # In a real application, the order request would be sent to the businesses and tracked
     else:
         st.error("Please enter order details")
+
+def main():
+    st.title("Township Small Business Bot")
+
+    # Example usage of the query_ollama function
+    user_query = st.text_input("Ask about local businesses")
+    if st.button("Send Query"):
+        if user_query:
+            response = query_ollama(user_query)  # Call the function with user input
+            st.write("Response:", response)
+
+if __name__ == "__main__":
+    main()
 
 # Footer
 st.write("---")

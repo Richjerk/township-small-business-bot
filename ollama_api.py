@@ -1,9 +1,18 @@
-from fastapi import FastAPI
+import requests
 
-app = FastAPI()
+def query_ollama(prompt):
+    url = "http://127.0.0.1:11434/api/generate"
+    payload = {
+        "model": "llama3",
+        "prompt": prompt
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
 
-@app.post("/ollama")
-def generate_response(prompt: str):
-    # Replace with your actual Llama 2 model invocation
-    model_response = ollama.generate(prompt, model="llama3", temperature=0.8)
-    return {"response": model_response}
+    response = requests.post(url, json=payload, headers=headers)
+    
+    if response.status_code == 200:
+        return response.json().get("response", "")
+    else:
+        return f"Error: {response.status_code}, {response.text}"
