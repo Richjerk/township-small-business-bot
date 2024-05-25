@@ -1,0 +1,14 @@
+# This model is based on a simple template, replace with your actual implementation
+
+FROM llama2
+
+PARAMETER temperature 1  # Adjust temperature parameter as needed
+
+SYSTEM """
+# Replace this placeholder with your actual chatbot logic
+# You can use Python libraries and access information relevant to township businesses
+print("Hi there! I'm Mario, your friendly assistant for your township business. How can I help you today?")
+"""
+
+
+# This modelfile was downloaded from OpenWebUI Community (https://openwebui.com) - Explore and Download Custom Modelfiles

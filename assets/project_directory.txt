@@ -1,0 +1,6 @@
+project_directory/
+│
+├── app.py
+│
+└── templates/
+    └── form.html
