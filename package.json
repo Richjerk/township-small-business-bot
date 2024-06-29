@@ -1,0 +1,30 @@
+{
+  "name": "township-small-business-bot",
+  "version": "1.0.0",
+  "description": "Algorithm for Township Small Business Chatbot",
+  "main": "index.js",
+  "scripts": {
+    "test": " \"dependencies\": {"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Richjerk/township-small-business-bot.git"
+  },
+  "keywords": [
+    "township",
+    "small",
+    "business",
+    "chatbot",
+    "algorithm",
+    "bot"
+  ],
+  "author": "Puseletso Mafisa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Richjerk/township-small-business-bot/issues"
+  },
+  "homepage": "https://github.com/Richjerk/township-small-business-bot#readme",
+  "dependencies": {
+    "string-width-cjs": "^5.1.1"
+  }
+}
